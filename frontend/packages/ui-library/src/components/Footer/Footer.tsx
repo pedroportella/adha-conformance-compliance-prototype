@@ -59,7 +59,7 @@ export function Footer({
   return (
     <footer className="au-footer au-footer--dark au-body au-body--dark" role="contentinfo">
       <div className="container">
-        <div className="layout layout--threecol-section layout--threecol-section--33-34-33 au-footer__prototype-layout">
+        <div className="layout layout--threecol-section layout--threecol-section--33-34-33 au-footer__portal-layout">
           {footerSections.map((section, index) => (
             <section className="layout__region au-footer__navigation-section" key={index}>
               {section.title && <h2>{section.title}</h2>}

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "ADHA Conformance & Compliance Portal prototype using React, Drupal 10 and Docker.",
+  "description": "ADHA Conformance & Compliance Portal using React, Drupal 10 and Docker.",
   "packageManager": "pnpm@10.18.3",
   "scripts": {
     "dev": "pnpm --dir frontend dev",
@@ -12,7 +12,14 @@
     "test": "pnpm --dir frontend test",
     "test:unit": "pnpm --dir frontend test:unit",
     "test:e2e": "pnpm --dir frontend test:e2e",
-    "typecheck": "pnpm --dir frontend typecheck"
+    "typecheck": "pnpm --dir frontend typecheck",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d mariadb php nginx frontend",
+    "docker:logs": "docker compose logs -f",
+    "docker:down": "docker compose down",
+    "docker:reset": "docker compose down -v",
+    "drupal:composer": "docker compose run --rm php composer install",
+    "drupal:install": "docker compose exec php vendor/bin/drush site:install minimal --site-name=\"ADHA Conformance Prototype\" --account-name=admin --account-pass=admin -y && docker compose exec php vendor/bin/drush pm:enable adha_conformance -y && docker compose exec php vendor/bin/drush updatedb -y && docker compose exec php vendor/bin/drush cache:rebuild"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

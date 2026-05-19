@@ -103,7 +103,7 @@ export function App() {
     }
     catch {
       setRegister(seedSubmissions);
-      setNotice('Drupal API unavailable; showing seeded conformance submissions for the prototype.');
+      setNotice('Drupal API unavailable; showing seeded conformance submissions for local review.');
     }
   };
 
@@ -155,10 +155,10 @@ export function App() {
         { href: '#readiness', label: 'Readiness' },
       ]}
       footer={{
-        copyright: '© Commonwealth of Australia. ADHA conformance and compliance prototype.',
+        copyright: '© Commonwealth of Australia. ADHA conformance and compliance portal.',
         sections: [
           {
-            content: 'The ADHA conformance and compliance prototype acknowledges Aboriginal and Torres Strait Islander peoples as the Traditional Owners and Custodians of Country. We recognise their continuing connection to land, waters, culture and community, and the importance of genuine partnership in designing safer, more inclusive digital health services.',
+            content: 'The ADHA conformance and compliance portal acknowledges Aboriginal and Torres Strait Islander peoples as the Traditional Owners and Custodians of Country. We recognise their continuing connection to land, waters, culture and community, and the importance of genuine partnership in designing safer, more inclusive digital health services.',
           },
           {
             ariaLabel: 'Prototype footer links',
@@ -170,17 +170,17 @@ export function App() {
               { href: '#privacy', label: 'Privacy and evidence handling' },
               { href: '#disclaimer', label: 'Prototype disclaimer' },
             ],
-            title: 'Using this prototype',
+            title: 'Using this portal',
           },
           {
             action: { href: '#submission', label: 'Provide feedback' },
-            content: 'This prototype is being refined to test vendor submissions, assessment triage, evidence quality and readiness controls before a production GovCMS and Drupal implementation.',
+            content: 'This local implementation supports review of vendor submissions, assessment triage, evidence quality and readiness controls before production GovCMS and Drupal delivery.',
             title: 'Help us improve',
           },
         ],
       }}
       subHeader={{
-        introduction: 'A working prototype for ADHA-style vendor and provider submissions covering integration evidence, accessibility, cyber controls, analytics readiness and Agency assessment workflow.',
+        introduction: 'A working portal for ADHA-style vendor and provider submissions covering integration evidence, accessibility, cyber controls, analytics readiness and Agency assessment workflow.',
         title: 'Conformance evidence, workflow triage and digital health readiness in one operating view.',
         children: (
           <div className="portal-sub-header__actions">

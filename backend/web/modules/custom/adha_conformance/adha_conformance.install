@@ -5,7 +5,7 @@
  */
 function adha_conformance_schema(): array {
   $schema['adha_conformance_submission'] = [
-    'description' => 'Stores ADHA conformance and compliance prototype submissions.',
+    'description' => 'Stores ADHA conformance and compliance submissions.',
     'fields' => [
       'id' => [
         'description' => 'Stable conformance submission identifier.',
@@ -73,7 +73,7 @@ function adha_conformance_schema(): array {
 }
 
 /**
- * Add the database-backed conformance table for existing prototype installs.
+ * Add the database-backed conformance table for existing local installs.
  */
 function adha_conformance_update_1001(): void {
   $schema = \Drupal::database()->schema();

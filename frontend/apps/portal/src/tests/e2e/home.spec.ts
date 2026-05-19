@@ -8,7 +8,7 @@ test('loads the ADHA conformance portal dashboard', async ({ page }) => {
   await expect(page.getByText('River City Health Software')).toBeVisible();
 });
 
-test('captures a prototype submission into the register', async ({ page }) => {
+test('captures a conformance submission into the register', async ({ page }) => {
   await page.goto('/');
 
   await page.getByRole('button', { name: 'Attach sample evidence' }).click();

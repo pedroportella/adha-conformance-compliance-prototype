@@ -1,7 +1,8 @@
 {
   "name": "pedroportella/adha-conformance-backend",
-  "description": "Drupal 10 backend skeleton for the ADHA Conformance & Compliance Portal prototype.",
+  "description": "Drupal 10 backend for the ADHA Conformance & Compliance Portal.",
   "type": "project",
+  "license": "proprietary",
   "require": {
     "php": "^8.3",
     "composer/installers": "^2.3",
