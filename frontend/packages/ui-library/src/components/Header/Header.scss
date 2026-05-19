@@ -1,0 +1,59 @@
+.au-header .row {
+  align-items: center;
+}
+
+.au-header__logo {
+  display: inline-block;
+}
+
+.au-header__logo-image {
+  display: block;
+  max-width: min(100%, 28rem);
+  height: auto;
+}
+
+.au-header__lockup {
+  margin-block-start: 0.75rem;
+}
+
+.au-header__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.au-header__subline {
+  margin-block-start: 0.25rem;
+}
+
+.health-search--global {
+  margin-block-start: 1rem;
+}
+
+.health-search--global .au-form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.health-search--global .health-search__form__input-wrapper {
+  width: min(100%, 19rem);
+}
+
+.health-search--global .health-search__form__submit {
+  min-width: 3.75rem;
+}
+
+@media (min-width: 768px) {
+  .health-search--global .au-form {
+    margin-inline-start: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .health-sub-nav {
+    text-align: left;
+  }
+
+  .health-search--global .au-form {
+    justify-content: flex-start;
+  }
+}

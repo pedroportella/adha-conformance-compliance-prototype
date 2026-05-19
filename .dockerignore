@@ -1,0 +1,18 @@
+# Node / frontend
+frontend/node_modules
+frontend/dist
+frontend/.vite
+frontend/.pnpm-store
+
+# PHP / Drupal runtime
+backend/vendor
+backend/web/sites/default/files
+backend/web/sites/default/private
+
+# Git / OS / reports
+.git
+**/.DS_Store
+**/__MACOSX
+coverage
+playwright-report
+test-results

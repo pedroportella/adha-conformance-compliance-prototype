@@ -1,0 +1,6 @@
+adha_conformance.admin_register:
+  title: 'ADHA conformance register'
+  description: 'Review vendor and provider conformance submissions, risk and uploaded evidence.'
+  route_name: adha_conformance.admin_register
+  parent: system.admin_content
+  weight: 20

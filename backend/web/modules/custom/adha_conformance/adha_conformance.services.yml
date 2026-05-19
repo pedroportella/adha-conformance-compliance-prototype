@@ -1,0 +1,4 @@
+services:
+  adha_conformance.repository:
+    class: Drupal\adha_conformance\Service\ConformanceRepository
+    arguments: ['@database']

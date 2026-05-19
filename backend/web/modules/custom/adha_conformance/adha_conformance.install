@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function adha_conformance_schema(): array {
+  $schema['adha_conformance_submission'] = [
+    'description' => 'Stores ADHA conformance and compliance prototype submissions.',
+    'fields' => [
+      'id' => [
+        'description' => 'Stable conformance submission identifier.',
+        'type' => 'varchar',
+        'length' => 96,
+        'not null' => TRUE,
+      ],
+      'reference_number' => [
+        'description' => 'Human-readable conformance reference.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+      ],
+      'organisation_name' => [
+        'description' => 'Vendor or provider organisation display name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'product_name' => [
+        'description' => 'Submitted software product or provider service name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'workflow_status' => [
+        'description' => 'Current assessment workflow status.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => 'Submitted',
+      ],
+      'risk_level' => [
+        'description' => 'Assessment risk level.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => 'Medium',
+      ],
+      'submitted_at' => [
+        'description' => 'ISO-8601 submission timestamp.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+      ],
+      'payload' => [
+        'description' => 'Full conformance submission payload as JSON.',
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'reference_number' => ['reference_number'],
+      'submitted_at' => ['submitted_at'],
+      'workflow_status' => ['workflow_status'],
+      'risk_level' => ['risk_level'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Add the database-backed conformance table for existing prototype installs.
+ */
+function adha_conformance_update_1001(): void {
+  $schema = \Drupal::database()->schema();
+
+  if (!$schema->tableExists('adha_conformance_submission')) {
+    $schema_definition = adha_conformance_schema();
+    $schema->createTable('adha_conformance_submission', $schema_definition['adha_conformance_submission']);
+  }
+}

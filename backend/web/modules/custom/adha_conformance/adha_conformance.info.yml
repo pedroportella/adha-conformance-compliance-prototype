@@ -1,0 +1,7 @@
+name: ADHA Conformance
+package: Custom
+core_version_requirement: ^10
+type: module
+description: Provides REST endpoints and administration pages for the ADHA Conformance & Compliance Portal prototype.
+dependencies:
+  - drupal:file

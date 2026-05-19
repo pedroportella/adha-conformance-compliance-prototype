@@ -1,0 +1,36 @@
+{
+  "name": "adha-conformance-compliance-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ADHA Conformance & Compliance Portal prototype using React, Drupal 10 and Docker.",
+  "packageManager": "pnpm@10.18.3",
+  "scripts": {
+    "dev": "pnpm --dir frontend dev",
+    "build": "pnpm --dir frontend build",
+    "lint": "pnpm --dir frontend lint",
+    "test": "pnpm --dir frontend test",
+    "test:unit": "pnpm --dir frontend test:unit",
+    "test:e2e": "pnpm --dir frontend test:e2e",
+    "typecheck": "pnpm --dir frontend typecheck"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^18.19.74",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "jsdom": "^24.1.3",
+    "sass": "^1.83.4",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14",
+    "vitest": "^1.6.1"
+  }
+}

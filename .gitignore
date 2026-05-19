@@ -1,0 +1,52 @@
+# ========================
+# Node / Vue
+# ========================
+frontend/node_modules/
+node_modules/
+frontend/dist/
+frontend/apps/*/dist/
+frontend/.vite/
+frontend/apps/*/.vite/
+frontend/.env
+frontend/.env.*
+frontend/.pnpm-store/
+frontend/test-results/
+frontend/apps/*/test-results/
+frontend/playwright-report/
+frontend/apps/*/playwright-report/
+frontend/blob-report/
+frontend/apps/*/blob-report/
+
+# ========================
+# PHP / Composer
+# ========================
+backend/vendor/
+
+# ========================
+# Drupal Core (DO NOT COMMIT)
+# ========================
+backend/web/core/
+backend/web/vendor/
+backend/web/modules/contrib/
+backend/web/themes/contrib/
+
+# ========================
+# Drupal settings / runtime
+# ========================
+backend/web/sites/default/settings.php
+backend/web/sites/default/settings.local.php
+backend/web/sites/default/files/
+backend/web/sites/default/private/
+backend/web/sites/default/config_*/
+
+# ========================
+# OS / IDE
+# ========================
+.DS_Store
+.vscode/
+.idea/
+
+# ========================
+# Docker
+# ========================
+docker/.env

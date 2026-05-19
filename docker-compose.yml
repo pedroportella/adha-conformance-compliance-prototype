@@ -1,0 +1,53 @@
+# docker-compose.yml
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+      - mariadb
+
+  php:
+    build:
+      context: ./docker/php
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      DRUPAL_DB_HOST: mariadb
+      DRUPAL_DB_NAME: adha_conformance
+      DRUPAL_DB_USER: adha_conformance
+      DRUPAL_DB_PASSWORD: adha_conformance
+
+  mariadb:
+    image: mariadb:11.4
+    environment:
+      MYSQL_DATABASE: adha_conformance
+      MYSQL_USER: adha_conformance
+      MYSQL_PASSWORD: adha_conformance
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+  frontend:
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "corepack enable && corepack prepare pnpm@10.18.3 --activate && pnpm install && pnpm --filter @adha/portal exec vite --host 0.0.0.0 --port 5173 --strictPort"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
+      - frontend-pnpm-store:/root/.local/share/pnpm/store
+    environment:
+      VITE_API_BASE_URL: http://localhost:8080/api
+
+volumes:
+  mariadb-data:
+  frontend-node-modules:
+  frontend-pnpm-store:

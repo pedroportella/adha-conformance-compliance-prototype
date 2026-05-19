@@ -1,0 +1,39 @@
+adha_conformance.list:
+  path: "/api/conformance-submissions"
+  defaults:
+    _controller: '\Drupal\adha_conformance\Controller\ConformanceController::list'
+  methods: [GET]
+  requirements:
+    _permission: "access content"
+
+adha_conformance.create:
+  path: "/api/conformance-submissions"
+  defaults:
+    _controller: '\Drupal\adha_conformance\Controller\ConformanceController::store'
+  methods: [POST]
+  requirements:
+    _permission: "access content"
+
+adha_conformance.upload_evidence:
+  path: "/api/conformance-submissions/evidence"
+  defaults:
+    _controller: '\Drupal\adha_conformance\Controller\ConformanceController::uploadEvidence'
+  methods: [POST]
+  requirements:
+    _permission: "access content"
+
+adha_conformance.view:
+  path: "/api/conformance-submissions/{id}"
+  defaults:
+    _controller: '\Drupal\adha_conformance\Controller\ConformanceController::view'
+  methods: [GET]
+  requirements:
+    _permission: "access content"
+
+adha_conformance.admin_register:
+  path: "/admin/adha-conformance"
+  defaults:
+    _controller: '\Drupal\adha_conformance\Controller\ConformanceController::adminList'
+    _title: "ADHA conformance register"
+  requirements:
+    _permission: "access administration pages"
