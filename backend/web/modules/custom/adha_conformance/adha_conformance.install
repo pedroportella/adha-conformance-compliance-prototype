@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Implements hook_install().
+ */
+function adha_conformance_install(): void {
+  _adha_conformance_ensure_admin_theme();
+}
+
+/**
  * Implements hook_schema().
  */
 function adha_conformance_schema(): array {
@@ -82,4 +89,30 @@ function adha_conformance_update_1001(): void {
     $schema_definition = adha_conformance_schema();
     $schema->createTable('adha_conformance_submission', $schema_definition['adha_conformance_submission']);
   }
+}
+
+/**
+ * Use Drupal's default admin theme for ADHA administration surfaces.
+ */
+function adha_conformance_update_1002(): void {
+  _adha_conformance_ensure_admin_theme();
+}
+
+/**
+ * Install and configure Claro when no admin theme has been selected yet.
+ */
+function _adha_conformance_ensure_admin_theme(): void {
+  $config = \Drupal::configFactory()->getEditable('system.theme');
+
+  if ($config->get('admin')) {
+    return;
+  }
+
+  $theme_installer = \Drupal::service('theme_installer');
+
+  if (!$theme_installer->install(['claro'])) {
+    return;
+  }
+
+  $config->set('admin', 'claro')->save();
 }

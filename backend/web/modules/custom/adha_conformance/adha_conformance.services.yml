@@ -2,3 +2,8 @@ services:
   adha_conformance.repository:
     class: Drupal\adha_conformance\Service\ConformanceRepository
     arguments: ['@database']
+  adha_conformance.admin_theme_negotiator:
+    class: Drupal\adha_conformance\Theme\AdminThemeNegotiator
+    arguments: ['@config.factory']
+    tags:
+      - { name: theme_negotiator, priority: 1000 }

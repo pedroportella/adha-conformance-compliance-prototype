@@ -1,3 +1,140 @@
+.adha-admin-preheader {
+  color: #222330;
+  background: #ffffff;
+  border-bottom: 1px solid #d3d4d9;
+  font-family: var(--gin-font, var(--font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif));
+}
+
+.adha-admin-preheader__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+}
+
+.adha-admin-preheader__brand {
+  flex: 0 0 auto;
+  color: #143c5c;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+
+.adha-admin-preheader__brand:hover,
+.adha-admin-preheader__brand:focus {
+  color: #0f2f48;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.adha-admin-preheader__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.adha-admin-preheader .item-list,
+.adha-admin-preheader .item-list ul,
+.adha-admin-preheader .item-list li,
+.adha-admin-preheader__nav .item-list,
+.adha-admin-preheader__nav ul,
+.adha-admin-preheader__nav li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.adha-admin-preheader .item-list li::marker {
+  content: "";
+}
+
+.adha-admin-preheader__nav--primary {
+  flex: 1 1 auto;
+}
+
+.adha-admin-preheader__nav--account {
+  flex: 0 1 auto;
+  justify-content: flex-end;
+}
+
+.adha-admin-preheader__user {
+  margin-left: auto;
+  color: #5b5d6b;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.adha-admin-preheader__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.875rem;
+  padding: 0.25rem 0.5rem;
+  color: #3c3f4a;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.adha-admin-preheader__link:hover,
+.adha-admin-preheader__link:focus {
+  color: #143c5c;
+  background: #eef5fb;
+  text-decoration: none;
+}
+
+.adha-admin-preheader__link.is-active {
+  color: #143c5c;
+  background: #e5f1f8;
+  box-shadow: inset 0 -2px 0 #236192;
+}
+
+.adha-admin-preheader__link--logout {
+  color: #7f1d1d;
+  background: transparent;
+}
+
+.adha-admin-preheader__link--logout:hover,
+.adha-admin-preheader__link--logout:focus {
+  color: #ffffff;
+  background: #7f1d1d;
+}
+
+@media (max-width: 720px) {
+  .adha-admin-preheader__inner,
+  .adha-admin-preheader__nav,
+  .adha-admin-preheader__nav--account {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .adha-admin-preheader__inner {
+    display: block;
+  }
+
+  .adha-admin-preheader__brand {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .adha-admin-preheader__user {
+    display: block;
+    margin: 0.5rem 0 0;
+  }
+
+  .adha-admin-preheader__nav + .adha-admin-preheader__nav {
+    margin-top: 0.5rem;
+  }
+}
+
 .adha-admin-hero,
 .adha-admin-panel {
   margin: 1rem 0;

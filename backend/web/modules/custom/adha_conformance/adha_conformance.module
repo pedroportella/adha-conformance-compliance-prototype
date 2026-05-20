@@ -4,3 +4,113 @@
  * @file
  * ADHA conformance module hooks.
  */
+
+use Drupal\Core\Url;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+
+/**
+ * Implements hook_page_top().
+ */
+function adha_conformance_page_top(array &$page_top): void {
+  $account = \Drupal::currentUser();
+
+  if ($account->isAnonymous()) {
+    return;
+  }
+
+  $user_id = (int) $account->id();
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $primary_links = array_filter([
+    _adha_conformance_admin_header_link('Register', 'adha_conformance.admin_register', [], [], $route_name),
+    _adha_conformance_admin_header_link('Administration', 'system.admin', [], [], $route_name),
+    _adha_conformance_admin_header_link('Content', 'system.admin_content', [], [], $route_name),
+    _adha_conformance_admin_header_link('People', 'entity.user.collection', [], [], $route_name),
+    _adha_conformance_admin_header_link('Reports', 'system.admin_reports', [], [], $route_name),
+    _adha_conformance_admin_header_link('Status', 'system.status', [], [], $route_name),
+    _adha_conformance_admin_header_link('Configuration', 'system.admin_config', [], [], $route_name),
+  ]);
+
+  $account_links = array_filter([
+    _adha_conformance_admin_header_link('My account', 'entity.user.canonical', ['user' => $user_id], [], $route_name),
+    _adha_conformance_admin_header_link('Change password', 'entity.user.edit_form', ['user' => $user_id], [], $route_name),
+    _adha_conformance_admin_header_link('Log out', 'user.logout', [], ['attributes' => ['class' => ['adha-admin-preheader__link', 'adha-admin-preheader__link--logout']]], $route_name),
+  ]);
+
+  if ($primary_links === [] && $account_links === []) {
+    return;
+  }
+
+  $page_top['adha_conformance_admin_preheader'] = [
+    '#type' => 'container',
+    '#attributes' => [
+      'class' => ['adha-admin-preheader'],
+      'role' => 'navigation',
+      'aria-label' => 'Administration',
+    ],
+    '#attached' => [
+      'library' => ['adha_conformance/admin'],
+    ],
+    '#cache' => [
+      'contexts' => ['route', 'user'],
+    ],
+    'inner' => [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['adha-admin-preheader__inner']],
+      'brand' => [
+        '#type' => 'link',
+        '#title' => 'ADHA Conformance',
+        '#url' => Url::fromRoute('<front>'),
+        '#attributes' => ['class' => ['adha-admin-preheader__brand']],
+      ],
+      'primary' => [
+        '#theme' => 'item_list',
+        '#items' => $primary_links,
+        '#attributes' => ['class' => ['adha-admin-preheader__nav', 'adha-admin-preheader__nav--primary']],
+      ],
+      'account_summary' => [
+        '#markup' => '<span class="adha-admin-preheader__user">Signed in as ' . htmlspecialchars($account->getAccountName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</span>',
+      ],
+      'account' => [
+        '#theme' => 'item_list',
+        '#items' => $account_links,
+        '#attributes' => ['class' => ['adha-admin-preheader__nav', 'adha-admin-preheader__nav--account']],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Builds an access-checked admin pre-header link.
+ *
+ * @param array<string, mixed> $route_parameters
+ *   Route parameters.
+ * @param array<string, mixed> $options
+ *   URL options.
+ */
+function _adha_conformance_admin_header_link(string $title, string $route_name, array $route_parameters = [], array $options = [], ?string $active_route_name = NULL): ?array {
+  $options += ['attributes' => ['class' => ['adha-admin-preheader__link']]];
+  $options['attributes']['class'] ??= [];
+
+  try {
+    $url = Url::fromRoute($route_name, $route_parameters, $options);
+  }
+  catch (RouteNotFoundException) {
+    return NULL;
+  }
+
+  if (!$url->access()) {
+    return NULL;
+  }
+
+  if ($route_name === $active_route_name) {
+    $options['attributes']['class'][] = 'is-active';
+    $options['attributes']['aria-current'] = 'page';
+    $url = Url::fromRoute($route_name, $route_parameters, $options);
+  }
+
+  return [
+    '#type' => 'link',
+    '#title' => $title,
+    '#url' => $url,
+  ];
+}

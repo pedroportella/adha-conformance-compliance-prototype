@@ -37,3 +37,5 @@ adha_conformance.admin_register:
     _title: "ADHA conformance register"
   requirements:
     _permission: "access administration pages"
+  options:
+    _admin_route: TRUE
