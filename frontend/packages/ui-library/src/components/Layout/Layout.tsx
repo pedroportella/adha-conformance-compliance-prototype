@@ -32,7 +32,10 @@ export function Layout({
 
   return (
     <div className="au-body au-grid app-shell">
-      <a className="au-skip-link" href="#main-content">Skip to main content</a>
+      <nav className="au-skip-link" aria-label="skip links navigation">
+        <a className="au-skip-link__link" href="#main-content">Skip to main content</a>
+        <a className="au-skip-link__link" href="#main-navigation">Skip to main navigation</a>
+      </nav>
       <Header subNavLinks={header?.subNavLinks ?? resolvedFooterLinks} {...header} />
       <MainNav links={links} mobileLinks={header?.subNavLinks ?? resolvedFooterLinks} />
       {subHeader && <SubHeader {...subHeader} />}

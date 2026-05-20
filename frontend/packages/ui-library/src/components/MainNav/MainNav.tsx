@@ -47,7 +47,7 @@ function renderNavItems(links: NavLink[], mobileOnly = false) {
 
 export function MainNav({ dark = false, id = 'main-nav-default', links, mobileLinks = [], withSearchToggle = true }: MainNavProps) {
   return (
-    <nav aria-label="main" className={['au-main-nav', dark ? 'au-main-nav--dark' : undefined].filter(Boolean).join(' ')}>
+    <nav aria-label="main" className={['au-main-nav', dark ? 'au-main-nav--dark' : undefined].filter(Boolean).join(' ')} id="main-navigation">
       <div className="container">
         <div className="row">
           <div className="col-md-12">

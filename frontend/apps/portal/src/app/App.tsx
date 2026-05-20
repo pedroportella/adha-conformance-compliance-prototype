@@ -190,61 +190,105 @@ export function App() {
         ),
       }}
     >
-      <Panel title="Assessment queue" eyebrow="Runtime status">
-        <Field label="Status">{notice}</Field>
-      </Panel>
+      <section className="portal-band portal-band--summary" aria-labelledby="summary-heading">
+        <div className="row">
+          <div className="col-xs-12 col-md-4">
+            <p className="eyebrow">Runtime status</p>
+            <h2 id="summary-heading">Assessment queue</h2>
+            <p>{notice}</p>
+          </div>
+          <div className="col-xs-12 col-md-8">
+            <div className="row portal-metrics" aria-label="Conformance summary">
+              <div className="col-xs-12 col-sm-6 col-lg-3">
+                <MetricCard label="Total submissions" value={register.length} />
+              </div>
+              <div className="col-xs-12 col-sm-6 col-lg-3">
+                <MetricCard label="High risk" value={summary.highRisk} />
+              </div>
+              <div className="col-xs-12 col-sm-6 col-lg-3">
+                <MetricCard label="Action required" value={summary.actionRequired} />
+              </div>
+              <div className="col-xs-12 col-sm-6 col-lg-3">
+                <MetricCard label="Ready" value={summary.ready} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <Panel title="Conformance summary" eyebrow="Register metrics">
-        <MetricCard label="Total submissions" value={register.length} />
-        <MetricCard label="High risk" value={summary.highRisk} />
-        <MetricCard label="Action required" value={summary.actionRequired} />
-        <MetricCard label="Ready" value={summary.ready} />
-      </Panel>
+      <section className="portal-band" aria-label="Conformance register and assessment priorities">
+        <div className="row">
+          <div className="col-xs-12 col-lg-8">
+            <Panel id="register" title="Conformance register" eyebrow="Workflow triage" wide>
+              <Table
+                headers={['Reference', 'Organisation', 'Product', 'Status', 'Risk', 'Submitted']}
+                rows={register.map((item) => [
+                  item.referenceNumber,
+                  item.organisationName,
+                  item.productName,
+                  <Tags items={[item.workflowStatus]} />,
+                  <Tags tone={item.riskLevel.toLowerCase() as 'low' | 'medium' | 'high'} items={[item.riskLevel]} />,
+                  formatDate(item.submittedAt),
+                ])}
+              />
+            </Panel>
+          </div>
+          <aside className="col-xs-12 col-lg-4 portal-aside" aria-label="Assessment priorities">
+            <section className="portal-priority">
+              <p className="eyebrow">Priority work</p>
+              <h2>Focus the assessment team</h2>
+              <ul className="au-link-list portal-priority__list">
+                <li><a href="#submission">Capture missing vendor evidence</a></li>
+                <li><a href="#readiness">Check accessibility and cyber controls</a></li>
+                <li><a href="#register">Review high-risk submissions first</a></li>
+              </ul>
+            </section>
+            <Panel id="readiness" title="Assessment readiness" eyebrow="Controls">
+              <div className="readiness-summary">
+                <Field label="Complete">{countChecks(submission.controlChecks, 'Complete')}</Field>
+                <Field label="Need evidence">{countChecks(submission.controlChecks, 'Needs evidence')}</Field>
+              </div>
+              {submission.controlChecks.map((check) => (
+                <SelectInput
+                  key={check.id}
+                  id={`control-${check.id}`}
+                  label={`${check.category}: ${check.label}`}
+                  options={controlStatuses}
+                  value={check.status}
+                  onChange={(event) => updateCheck(check.id, event.target.value as ControlCheck['status'])}
+                />
+              ))}
+            </Panel>
+          </aside>
+        </div>
+      </section>
 
-      <Panel id="register" title="Conformance register" eyebrow="Workflow triage" wide>
-        <Table
-          headers={['Reference', 'Organisation', 'Product', 'Status', 'Risk', 'Submitted']}
-          rows={register.map((item) => [
-            item.referenceNumber,
-            item.organisationName,
-            item.productName,
-            <Tags items={[item.workflowStatus]} />,
-            <Tags tone={item.riskLevel.toLowerCase() as 'low' | 'medium' | 'high'} items={[item.riskLevel]} />,
-            formatDate(item.submittedAt),
-          ])}
-        />
-      </Panel>
-
-      <Panel id="submission" title="Evidence intake" eyebrow="Vendor/provider submission">
-        <Form onSubmit={submitEvidence}>
-          <TextInput id="organisation" label="Organisation" value={submission.organisationName} onChange={(event) => updateField('organisationName', event.target.value)} />
-          <TextInput id="product" label="Product" value={submission.productName} onChange={(event) => updateField('productName', event.target.value)} />
-          <TextInput id="contact-email" label="Contact email" type="email" value={submission.contactEmail} onChange={(event) => updateField('contactEmail', event.target.value)} />
-          <SelectInput id="conformance-profile" label="Conformance profile" options={conformanceProfiles} value={submission.conformanceProfile} onChange={(event) => updateField('conformanceProfile', event.target.value)} />
-          <SelectInput id="workflow-status" label="Workflow status" options={workflowStatuses} value={submission.workflowStatus} onChange={(event) => updateField('workflowStatus', event.target.value)} />
-          <TextInput id="target-release" label="Target release" type="date" value={submission.targetReleaseDate} onChange={(event) => updateField('targetReleaseDate', event.target.value)} />
-          <Field label="Evidence" inline>{submission.evidenceDocuments.length} documents attached</Field>
-          <FormActions>
-            <Button variant="secondary" type="button" onClick={addEvidence}>Attach sample evidence</Button>
-            <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Submit to conformance register'}</Button>
-          </FormActions>
-        </Form>
-      </Panel>
-
-      <Panel id="readiness" title="Assessment readiness" eyebrow="Controls">
-        <Field label="Complete">{countChecks(submission.controlChecks, 'Complete')}</Field>
-        <Field label="Need evidence">{countChecks(submission.controlChecks, 'Needs evidence')}</Field>
-        {submission.controlChecks.map((check) => (
-          <SelectInput
-            key={check.id}
-            id={`control-${check.id}`}
-            label={`${check.category}: ${check.label}`}
-            options={controlStatuses}
-            value={check.status}
-            onChange={(event) => updateCheck(check.id, event.target.value as ControlCheck['status'])}
-          />
-        ))}
-      </Panel>
+      <section className="portal-band portal-band--intake" aria-labelledby="submission-heading">
+        <div className="row">
+          <div className="col-xs-12 col-md-4">
+            <p className="eyebrow">Vendor/provider submission</p>
+            <h2 id="submission-heading">Evidence intake</h2>
+            <p>Capture the minimum details assessment teams need before evidence moves into formal conformance review.</p>
+          </div>
+          <div className="col-xs-12 col-md-8">
+            <Panel id="submission" title="Create or update a submission" eyebrow="Evidence form">
+              <Form onSubmit={submitEvidence}>
+                <TextInput id="organisation" label="Organisation" value={submission.organisationName} onChange={(event) => updateField('organisationName', event.target.value)} />
+                <TextInput id="product" label="Product" value={submission.productName} onChange={(event) => updateField('productName', event.target.value)} />
+                <TextInput id="contact-email" label="Contact email" type="email" value={submission.contactEmail} onChange={(event) => updateField('contactEmail', event.target.value)} />
+                <SelectInput id="conformance-profile" label="Conformance profile" options={conformanceProfiles} value={submission.conformanceProfile} onChange={(event) => updateField('conformanceProfile', event.target.value)} />
+                <SelectInput id="workflow-status" label="Workflow status" options={workflowStatuses} value={submission.workflowStatus} onChange={(event) => updateField('workflowStatus', event.target.value)} />
+                <TextInput id="target-release" label="Target release" type="date" value={submission.targetReleaseDate} onChange={(event) => updateField('targetReleaseDate', event.target.value)} />
+                <Field label="Evidence" inline>{submission.evidenceDocuments.length} documents attached</Field>
+                <FormActions>
+                  <Button variant="secondary" type="button" onClick={addEvidence}>Attach sample evidence</Button>
+                  <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Submit to conformance register'}</Button>
+                </FormActions>
+              </Form>
+            </Panel>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 }
