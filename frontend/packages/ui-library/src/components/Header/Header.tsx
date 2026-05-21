@@ -76,7 +76,12 @@ export function Header({
                   </div>
                   <div className="health-loading"></div>
                 </div>
-                <input className="health-search__form__submit au-btn" name="submit" type="submit" value="Search" />
+                <input
+                  className="au-btn button health-search__form__submit health-search__form__submit--global"
+                  name="submit"
+                  type="submit"
+                  value="Search"
+                />
               </form>
             </div>
           </div>
