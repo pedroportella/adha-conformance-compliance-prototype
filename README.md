@@ -8,6 +8,20 @@ The application supports conformance submission intake, evidence capture, assess
 
 The solution is implemented as a decoupled React frontend and Drupal backend, with Docker providing a consistent local runtime for the frontend, Nginx, PHP-FPM, and MariaDB services.
 
+## Screenshots
+
+### Frontend submission portal
+
+![Frontend submission portal](docs/screenshots/frontend-submission-portal.png)
+
+### Drupal administrator login
+
+![Drupal administrator login](docs/screenshots/drupal-login.png)
+
+### Drupal conformance register
+
+![Drupal conformance register](docs/screenshots/drupal-admin-register.png)
+
 ## Delivered Capabilities
 
 ### Frontend
