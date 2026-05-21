@@ -52,18 +52,12 @@ export function Header({
             )}
           </div>
           <div className="col-xs-12 col-md-6">
-            {subNavLinks.length > 0 && (
-              <div className="health-sub-nav text--align-right">
-                <h3 className="au-sronly">Sub menu</h3>
-                <ul className="au-link-list au-link-list--inline">
-                  {subNavLinks.map((link) => (
-                    <li key={link.href}>
-                      <a aria-current={link.current ? 'page' : undefined} href={link.href}>{link.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="health-sub-nav text--align-right">
+              <h3 className="au-sronly">Sub menu</h3>
+              <ul className="au-link-list au-link-list--inline">
+                <a href="#about-us">About us</a>
+              </ul>
+            </div>
             <div className="health-search health-search--global">
               <form action={searchAction} className="au-form">
                 <div className="health-search__form__input-wrapper">

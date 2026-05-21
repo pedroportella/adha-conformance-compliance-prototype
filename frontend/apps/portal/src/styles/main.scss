@@ -131,6 +131,10 @@ body {
   border-left: 0.35rem solid #607a1f;
 }
 
+.portal-priority--teal {
+  border-left-color: #007680;
+}
+
 .portal-priority__list {
   margin-bottom: 0;
 }
@@ -178,6 +182,46 @@ body {
 
 .portal-band--intake {
   background: #ffffff;
+}
+
+.portal-status-note {
+  padding: 0.75rem;
+  background: #f4f7fa;
+  border: 1px solid #d8e2ea;
+}
+
+.portal-page-grid {
+  row-gap: 1rem;
+}
+
+.portal-checklist {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.portal-checklist li + li {
+  margin-top: 0.75rem;
+}
+
+.portal-process-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.portal-process-list li {
+  padding-left: 0.25rem;
+}
+
+.portal-process-list strong,
+.portal-process-list span {
+  display: block;
+}
+
+.portal-process-list strong {
+  margin-bottom: 0.25rem;
+  color: #002058;
 }
 
 @media (max-width: 900px) {
